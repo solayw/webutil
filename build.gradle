@@ -1,0 +1,22 @@
+plugins {
+    id 'idea'
+}
+
+group 'com.github.solayw.webutil'
+version '1.0-SNAPSHOT'
+
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
+
+    }
+}
+
+subprojects {
+    apply plugin: "java"
+    test {
+        useJUnitPlatform()
+    }
+}
