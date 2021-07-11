@@ -40,6 +40,10 @@ public class UnSafePropertyCopy<S, T>
        }
        return res;
    }
+
+   public static <S,T> UnSafePropertyCopy<S, T> of(Class<S> source, Class<T> target) {
+       return new UnSafePropertyCopy<>(source, target);
+   }
     public UnSafePropertyCopy(Class<S> source, Class<T> target) {
         this(source, target, defaultOptions);
     }
