@@ -1,22 +1,39 @@
-plugins {
-    id 'idea'
-}
+apply  plugin: 'idea'
 
+
+buildscript {
+    repositories {
+        //noinspection GroovyAssignabilityCheck
+        maven{ url 'https://maven.aliyun.com/nexus/content/groups/public/'}
+        mavenCentral()
+    }
+}
 group 'com.github.solayw.webutil'
 version '1.0-SNAPSHOT'
+subprojects {
+    apply plugin: "java"
 
-allprojects {
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
         sourceCompatibility = "1.8"
         targetCompatibility = "1.8"
 
     }
-}
-
-subprojects {
-    apply plugin: "java"
+    repositories {
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
     test {
         useJUnitPlatform()
     }
+    configurations {
+        testImplementation.extendsFrom compileOnly
+    }
+    dependencies {
+        testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+        testImplementation 'org.mockito:mockito-all:1.10.19'
+    }
+
 }

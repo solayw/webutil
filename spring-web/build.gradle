@@ -1,0 +1,11 @@
+
+
+dependencies {
+    implementation project(":common")
+    compileOnly group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.5.2'
+    compileOnly 'org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.2.Final'
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+
+}
