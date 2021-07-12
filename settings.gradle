@@ -1,4 +1,5 @@
 rootProject.name = 'webutil'
 include 'common'
 include 'spring-web'
+include 'spring-web-test'
 
