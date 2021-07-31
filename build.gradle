@@ -12,7 +12,7 @@ group 'com.github.solayw.webutil'
 version '1.0-SNAPSHOT'
 subprojects {
     apply plugin: "java"
-
+    def publish =  !name.contains("test")
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
         sourceCompatibility = "1.8"
@@ -28,6 +28,28 @@ subprojects {
     }
     configurations {
         testImplementation.extendsFrom compileOnly
+    }
+    if(publish) {
+        apply plugin: "maven-publish"
+
+        task sourcesJar(type: Jar, dependsOn: classes) {
+            classifier = 'sources'
+            from sourceSets.main.allSource
+        }
+
+        task javadocJar(type: Jar, dependsOn: javadoc) {
+            classifier = 'javadoc'
+            from javadoc.destinationDir
+        }
+
+        artifacts {
+            archives sourcesJar
+            archives javadocJar
+        }
+
+
+
+
     }
     dependencies {
         testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
