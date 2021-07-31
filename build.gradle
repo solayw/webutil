@@ -30,7 +30,7 @@ subprojects {
         testImplementation.extendsFrom compileOnly
     }
     if(publish) {
-        apply plugin: "maven-publish"
+        apply plugin: "maven"
 
         task sourcesJar(type: Jar, dependsOn: classes) {
             classifier = 'sources'
