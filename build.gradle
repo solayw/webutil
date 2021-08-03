@@ -7,11 +7,17 @@ buildscript {
         maven{ url 'https://maven.aliyun.com/nexus/content/groups/public/'}
         mavenCentral()
     }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.10"
+
+    }
 }
 group 'com.github.solayw.webutil'
 version '1.0-SNAPSHOT'
 subprojects {
     apply plugin: "java"
+    apply plugin: "org.jetbrains.kotlin.jvm"
+
     def publish =  !name.contains("test")
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
@@ -52,6 +58,8 @@ subprojects {
 
     }
     dependencies {
+        implementation group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib'
+
         testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
