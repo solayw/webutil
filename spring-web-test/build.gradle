@@ -1,5 +1,10 @@
+sourceSets {
 
+    def extra = project(":spring-web").configurations.compileOnly
+    test.compileClasspath += extra
+    test.runtimeClasspath += extra
+}
 
 dependencies {
-
+    implementation project(":spring-web")
 }

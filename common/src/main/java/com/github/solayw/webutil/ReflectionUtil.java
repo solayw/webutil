@@ -1,6 +1,7 @@
 package com.github.solayw.webutil;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,35 @@ public class ReflectionUtil
                     continue;
                 }
                 if(!includeTransient && Modifier.isTransient(modifiers)) {
+                    continue;
+                }
+                if(filter != null && !filter.test(f)) {
+                    continue;
+                }
+                f.setAccessible(true);
+                res.add(f);
+            }
+            if(includeSuper) {
+                type = type.getSuperclass();
+            } else {
+                break;
+            }
+        }
+        return res;
+    }
+    public static List<Method> methods(Class type,
+                                     boolean includeStatic,
+                                     boolean includeNonPublic,
+                                     boolean includeSuper,
+                                     Predicate<Method> filter) {
+        ArrayList<Method> res = new ArrayList<>();
+        while (type != Object.class) {
+            for (Method f : type.getDeclaredMethods()) {
+                final int modifiers = f.getModifiers();
+                if(!includeStatic && Modifier.isStatic(modifiers)) {
+                    continue;
+                }
+                if(!includeNonPublic && !Modifier.isPublic(modifiers)) {
                     continue;
                 }
                 if(filter != null && !filter.test(f)) {
